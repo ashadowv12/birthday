@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="refresh" content="10;url=cake.html">
+  <title>Happy Birthday</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(ellipse at bottom, #1e3c72, #2a5298);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      text-align: center;
+      color: white;
+      position: relative;
+      padding: 1rem;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+    }
+
+    .glow {
+      font-size: 2.5rem;
+      animation: glow 2s ease-in-out infinite alternate;
+      margin: 1rem 0 0.5rem;
+      line-height: 1.2;
+    }
+
+    .name {
+      color: #ffb6c1;
+      text-shadow: 0 0 10px #ff69b4;
+    }
+
+    .message {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      padding: 0 1rem;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff00de; }
+      to { text-shadow: 0 0 20px #fff, 0 0 30px #ff4de8; }
+    }
+
+    .profile {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 0 20px #ff69b4;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .confetti div {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(calc(360 * var(--i) / 30), 80%, 60%);
+      top: -10px;
+      left: calc(3.33% * var(--i));
+      animation: fall 5s linear infinite;
+      animation-delay: calc(-0.15s * var(--i));
+      border-radius: 50%;
+      z-index: 8;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .firework {
+      position: absolute;
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+      animation: explode 1.5s ease-out forwards;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleMove 1.5s ease-out forwards;
+    }
+
+    @keyframes particleMove {
+      0% { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 30px;
+      height: 50px;
+      background: red;
+      border-radius: 50% 50% 40% 40%;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-110vh) rotate(360deg); }
+    }
+
+    .gift-box {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 65px;
+      height: 65px;
+      background: #ff4d4d;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 9;
+      animation: bounce 2s infinite;
+    }
+
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 16px;
+      background: #d42a2a;
+      border-radius: 5px 5px 0 0;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* MOBILE STYLES */
+    @media (max-width: 480px) {
+      .glow {
+        font-size: 1.8rem;
+      }
+
+      .profile {
+        width: 110px;
+        height: 110px;
+      }
+
+      .message {
+        font-size: 0.9rem;
+      }
+
+      .gift-box {
+        width: 55px;
+        height: 55px;
+      }
+
+      .gift-box::before {
+        height: 14px;
+      }
+
+      .balloon {
+        width: 25px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔊 Background Music -->
+  <audio autoplay loop>
+    <source src="happy-birthday.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 🎁 Gift -->
+  <div class="gift-box"></div>
+
+  <!-- 👤 Main Content -->
+  <div class="container">
+    <img src="images/ammu3.jpg" class="profile" alt="Birthday Person" />
+    <h1 class="glow">🎉 Happy Birthday, <span class="name">Amrita</span>! 🎂</h1>
+    <p class="message">Wishing you a day filled with love and magic always! 💖</p>
+  </div>
+
+  <!-- 🎊 Confetti -->
+  <div class="confetti">
+    <script>
+      const confettiCount = window.innerWidth <= 480 ? 30 : 50;
+      for (let i = 0; i < confettiCount; i++) {
+        const div = document.createElement("div");
+        div.style.setProperty('--i', i);
+        document.querySelector('.confetti').appendChild(div);
+      }
+    </script>
+  </div>
+
+  <!-- 🎆 Fireworks -->
+  <script>
+    function createFirework() {
+      const firework = document.createElement("div");
+      firework.classList.add("firework");
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * (window.innerHeight / 2);
+      firework.style.left = `${x}px`;
+      firework.style.top = `${y}px`;
+
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = Math.random() * 80 + 40;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        particle.style.setProperty('--x', `${dx}px`);
+        particle.style.setProperty('--y', `${dy}px`);
+        particle.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        firework.appendChild(particle);
+      }
+
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1600);
+    }
+
+    setInterval(createFirework, 500);
+  </script>
+
+  <!-- 🎈 Balloons -->
+  <script>
+    const colors = ['#ff5e57', '#ffbe0b', '#48cae4', '#9d4edd'];
+    const balloonCount = window.innerWidth <= 480 ? 10 : 15;
+    for (let i = 0; i < balloonCount; i++) {
+      const balloon = document.createElement("div");
+      balloon.classList.add("balloon");
+      balloon.style.left = `${Math.random() * 100}vw`;
+      balloon.style.background = colors[i % colors.length];
+      balloon.style.animationDuration = `${8 + Math.random() * 5}s`;
+      document.body.appendChild(balloon);
+    }
+  </script>
+
+</body>
+</html>
